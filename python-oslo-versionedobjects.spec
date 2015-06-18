@@ -3,7 +3,7 @@
 
 Name:       python-oslo-versionedobjects
 Version:    0.1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    OpenStack common versionedobjects library
 
 License:    ASL 2.0
@@ -88,6 +88,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Thu Mar 26 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 0.1.1-1
 - Upstream 0.1.1
 - Based on Derekh Higgins package from Delorean
