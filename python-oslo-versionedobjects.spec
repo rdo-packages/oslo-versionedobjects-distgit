@@ -2,8 +2,8 @@
 %global sname oslo.versionedobjects
 
 Name:       python-oslo-versionedobjects
-Version:    0.1.1
-Release:    2%{?dist}
+Version:    0.7.0
+Release:    1%{?dist}
 Summary:    OpenStack common versionedobjects library
 
 License:    ASL 2.0
@@ -43,7 +43,10 @@ than the code expects, allowing services to be operated safely during upgrades.
 Summary:    Documentation for OpenStack common versionedobjects library
 
 BuildRequires: python-sphinx
+BuildRequires: python-oslo-config
 BuildRequires: python-oslo-sphinx
+BuildRequires: python-oslo-messaging
+BuildRequires: python-iso8601
 
 # Needed for autoindex which imports the code
 
@@ -79,7 +82,7 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 
 %files
 %doc README.rst
-%license LICENSE AUTHORS ChangeLog
+%license LICENSE
 %{python2_sitelib}/oslo_versionedobjects
 %{python2_sitelib}/*.egg-info
 
@@ -88,10 +91,12 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Tue Aug 18 2015 Alan Pevec <alan.pevec@redhat.com> 0.7.0-1
+- Update to upstream 0.7.0
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
 * Thu Mar 26 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 0.1.1-1
 - Upstream 0.1.1
 - Based on Derekh Higgins package from Delorean
-
