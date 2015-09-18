@@ -2,7 +2,7 @@
 %global sname oslo.versionedobjects
 
 Name:       python-oslo-versionedobjects
-Version:    0.7.0
+Version:    0.10.0
 Release:    1%{?dist}
 Summary:    OpenStack common versionedobjects library
 
@@ -12,7 +12,7 @@ Source0:    https://pypi.python.org/packages/source/o/%{sname}/%{sname}-%{versio
 
 BuildArch:  noarch
 Requires:   python-setuptools
-Requires:   python-six >= 1.7
+Requires:   python-six >= 1.9.0
 Requires:   python-babel
 Requires:   python-oslo-concurrency
 Requires:   python-oslo-context
@@ -28,7 +28,6 @@ Requires:   python-iso8601
 BuildRequires: python2-devel
 BuildRequires: python-setuptools
 BuildRequires: python-pbr
-BuildRequires: python-d2to1
 
 %description
 The Oslo project intends to produce a python library containing
@@ -91,6 +90,9 @@ rm -fr %{buildroot}%{python_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Fri Sep 18 2015 Alan Pevec <alan.pevec@redhat.com> 0.10.0-1
+- Update to upstream 0.10.0
+
 * Tue Aug 18 2015 Alan Pevec <alan.pevec@redhat.com> 0.7.0-1
 - Update to upstream 0.7.0
 
