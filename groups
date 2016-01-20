@@ -1,3 +1,5 @@
-# UUID                                  	Group Name
-#
-e4d60936046165b08d6975b625c9e203c4e92c2a	oslo-versionedobjects-distgit-ptl
+# UUID          Group Name
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73 	Non-Interactive Users
+16a37a51c40fd9d6ae33f74cf7c13f79d92f6420       	oslo-versionedobjects-distgit-core
+e4d60936046165b08d6975b625c9e203c4e92c2a        	oslo-versionedobjects-distgit-ptl
+global:Registered-Users		Registered Users
