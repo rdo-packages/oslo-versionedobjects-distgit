@@ -36,6 +36,8 @@ BuildRequires: python-oslo-config
 BuildRequires: python-oslo-i18n
 BuildRequires: python-oslo-messaging
 BuildRequires: python-eventlet
+# Required to compile translation files
+BuildRequires: python-babel
 
 Requires:   python-setuptools
 Requires:   python-six >= 1.7
@@ -50,6 +52,7 @@ Requires:   python-oslo-i18n
 Requires:   python-mock
 Requires:   python-fixtures
 Requires:   python-iso8601
+Requires:   python-%{pkg_name}-lang >= %{version}-%{release}
 
 %description -n python2-%{pkg_name}
 The Oslo project intends to produce a python library containing
@@ -122,6 +125,7 @@ Requires:   python3-oslo-i18n
 Requires:   python3-mock
 Requires:   python3-fixtures
 Requires:   python3-iso8601
+Requires:   python-%{pkg_name}-lang >= %{version}-%{release}
 
 %description -n python3-%{pkg_name}
 The Oslo project intends to produce a python library containing
@@ -144,6 +148,12 @@ Requires: python3-pytz
 %description -n python3-%{pkg_name}-tests
 Tests for the oslo.versionedobjects library.
 %endif
+
+%package  -n python-%{pkg_name}-lang
+Summary:   Translation files for Oslo versionedobjects library
+
+%description -n python-%{pkg_name}-lang
+Translation files for Oslo versionedobjects library
 
 %description
 The Oslo project intends to produce a python library containing
@@ -170,6 +180,10 @@ rm -rf {test-,}requirements.txt
 %py3_build
 %endif
 
+# Generate i18n files
+%{__python2} setup.py compile_catalog -d build/lib/oslo_versionedobjects/locale
+
+
 %install
 %py2_install
 %if 0%{?with_python3}
@@ -182,6 +196,18 @@ sphinx-build -b html -d build/doctrees   source build/html
 popd
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
+
+# Install i18n .mo files (.po and .pot are not required)
+install -d -m 755 %{buildroot}%{_datadir}
+rm -f %{buildroot}%{python2_sitelib}/oslo_versionedobjects/locale/*/LC_*/oslo_versionedobjects*po
+rm -f %{buildroot}%{python2_sitelib}/oslo_versionedobjects/locale/*pot
+mv %{buildroot}%{python2_sitelib}/oslo_versionedobjects/locale %{buildroot}%{_datadir}/locale
+%if 0%{?with_python3}
+rm -rf %{buildroot}%{python3_sitelib}/oslo_versionedobjects/locale
+%endif
+
+# Find language files
+%find_lang oslo_versionedobjects --all-name
 
 %check
 %if 0%{?with_python3}
@@ -203,6 +229,8 @@ rm -rf .testrepository
 
 %files -n python2-%{pkg_name}-tests
 %{python2_sitelib}/oslo_versionedobjects/tests
+
+%files -n python-%{pkg_name}-lang -f oslo_versionedobjects.lang  
 
 %if 0%{?with_python3}
 %files -n python3-%{pkg_name}
