@@ -8,7 +8,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:       python-oslo-versionedobjects
-Version:    1.7.0
+Version:    1.8.0
 Release:    1%{?dist}
 Summary:    OpenStack common versionedobjects library
 
@@ -219,6 +219,9 @@ rm -rf .testrepository
 %endif
 
 %changelog
+* Thu Sep 08 2016 Haikel Guemar <hguemar@fedoraproject.org> 1.8.0-1
+- Update to 1.8.0
+
 * Wed Mar 23 2016 Haikel Guemar <hguemar@fedoraproject.org> 1.7.0-
 - Update to 1.7.0
 
