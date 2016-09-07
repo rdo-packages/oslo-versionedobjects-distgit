@@ -1,3 +1,4 @@
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %if 0%{?fedora} >= 24
 %global with_python3 1
 %endif
@@ -13,7 +14,7 @@ Summary:    OpenStack common versionedobjects library
 Group:      Development/Languages
 License:    ASL 2.0
 URL:        https://launchpad.net/oslo
-Source0:    https://pypi.python.org/packages/source/o/%{sname}/%{sname}-1.4.0.tar.gz
+Source0:    https://pypi.io/packages/source/o/%{sname}/%{sname}-%{upstream_version}.tar.gz
 BuildArch:  noarch
 
 %package -n python2-%{pkg_name}
@@ -40,7 +41,7 @@ BuildRequires: python-eventlet
 BuildRequires: python-babel
 
 Requires:   python-setuptools
-Requires:   python-six >= 1.7
+Requires:   python-six >= 1.9.0
 Requires:   python-babel
 Requires:   python-oslo-concurrency
 Requires:   python-oslo-context
@@ -113,7 +114,7 @@ BuildRequires: python3-oslo-messaging
 BuildRequires: python3-eventlet
 
 Requires:   python3-setuptools
-Requires:   python3-six >= 1.7
+Requires:   python3-six >= 1.9.0
 Requires:   python3-babel
 Requires:   python3-oslo-concurrency
 Requires:   python3-oslo-context
