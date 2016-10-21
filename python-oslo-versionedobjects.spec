@@ -37,6 +37,7 @@ BuildRequires: python-oslo-config
 BuildRequires: python-oslo-i18n
 BuildRequires: python-oslo-messaging
 BuildRequires: python-eventlet
+BuildRequires: python-jsonschema
 # Required to compile translation files
 BuildRequires: python-babel
 
