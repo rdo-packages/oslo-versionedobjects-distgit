@@ -7,8 +7,8 @@
 %global pkg_name oslo-versionedobjects
 
 Name:       python-oslo-versionedobjects
-Version:    XXX
-Release:    XXX
+Version:    1.21.0
+Release:    1%{?dist}
 Summary:    OpenStack common versionedobjects library
 
 Group:      Development/Languages
@@ -253,3 +253,6 @@ rm -rf .testrepository
 %endif
 
 %changelog
+* Wed Feb 08 2017 Alfredo Moralejo <amoralej@redhat.com> 1.21.0-1
+- Update to 1.21.0
+
