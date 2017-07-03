@@ -24,6 +24,7 @@ Summary:    OpenStack common versionedobjects library
 BuildRequires: python2-devel
 BuildRequires: python-setuptools
 BuildRequires: python-pbr
+BuildRequires: git
 BuildRequires: python-d2to1
 # Required for tests
 BuildRequires: python-hacking
@@ -72,7 +73,7 @@ than the code expects, allowing services to be operated safely during upgrades.
 Summary:    Documentation for OpenStack common versionedobjects library
 
 BuildRequires: python-oslo-config
-BuildRequires: python-oslo-sphinx
+BuildRequires: python-openstackdocstheme
 BuildRequires: python-oslo-messaging
 BuildRequires: python-iso8601
 BuildRequires: python-sphinx
@@ -172,7 +173,7 @@ Oslo versionedobjects library deals with DB schema being at different versions
 than the code expects, allowing services to be operated safely during upgrades.
 
 %prep
-%setup -q -n %{sname}-%{upstream_version}
+%autosetup -n %{sname}-%{upstream_version} -S git
 
 # let RPM handle deps
 sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
@@ -197,10 +198,7 @@ rm -rf {test-,}requirements.txt
 %py3_install
 %endif
 
-export PYTHONPATH="$( pwd ):$PYTHONPATH"
-pushd doc
-sphinx-build -b html -d build/doctrees   source build/html
-popd
+%{__python2} setup.py build_sphinx -b html
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
 
