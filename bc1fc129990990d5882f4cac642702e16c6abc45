@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_301dc674",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-04T11:05:52Z",
+      "side": 1,
+      "message": "babel not longer needed as Requires (it\u0027s needed as BuildRequires to compile translation files).",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 24
+      },
+      "revId": "bc1fc129990990d5882f4cac642702e16c6abc45",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_1018ca83",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-04T11:05:52Z",
+      "side": 1,
+      "message": "As we already have explicit dependency for webob let\u0027s update it to what upstream has, 1.7.1,",
+      "range": {
+        "startLine": 60,
+        "startChar": 28,
+        "endLine": 60,
+        "endChar": 33
+      },
+      "revId": "bc1fc129990990d5882f4cac642702e16c6abc45",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
