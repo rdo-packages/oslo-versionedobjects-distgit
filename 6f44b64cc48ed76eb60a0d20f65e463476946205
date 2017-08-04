@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_53ca5ca2",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-04T11:54:14Z",
+      "side": 1,
+      "message": "Why do we need this?",
+      "range": {
+        "startLine": 1,
+        "startChar": 47,
+        "endLine": 1,
+        "endChar": 53
+      },
+      "revId": "6f44b64cc48ed76eb60a0d20f65e463476946205",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
