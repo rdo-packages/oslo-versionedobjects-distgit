@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_df48ffce",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 454
+      },
+      "writtenOn": "2017-10-03T14:12:06Z",
+      "side": 1,
+      "message": "This too could be added.",
+      "revId": "1996bd0a17726ffb84b2555b5960d95b3bc3ef57",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_7f11d3ab",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 454
+      },
+      "writtenOn": "2017-10-03T14:12:06Z",
+      "side": 1,
+      "message": "missed this one. Get a new variable for it.",
+      "revId": "1996bd0a17726ffb84b2555b5960d95b3bc3ef57",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_9f25a70c",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 454
+      },
+      "writtenOn": "2017-10-03T14:12:06Z",
+      "side": 1,
+      "message": "same here",
+      "revId": "1996bd0a17726ffb84b2555b5960d95b3bc3ef57",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
