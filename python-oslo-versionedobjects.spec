@@ -6,6 +6,18 @@
 %global sname oslo.versionedobjects
 %global pkg_name oslo-versionedobjects
 
+%global common_desc \
+The Oslo project intends to produce a python library containing \
+infrastructure code shared by OpenStack projects. The APIs provided \
+by the project should be high quality, stable, consistent and generally \
+useful. \
+ \
+Oslo versionedobjects library deals with DB schema being at different versions \
+than the code expects, allowing services to be operated safely during upgrades.
+
+%global common_desc_tests \
+Tests for the oslo.versionedobjects library.
+
 Name:       python-oslo-versionedobjects
 Version:    XXX
 Release:    XXX
@@ -60,13 +72,7 @@ Requires:   python-webob >= 1.7.1
 Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 
 %description -n python2-%{pkg_name}
-The Oslo project intends to produce a python library containing
-infrastructure code shared by OpenStack projects. The APIs provided
-by the project should be high quality, stable, consistent and generally
-useful.
-
-Oslo versionedobjects library deals with DB schema being at different versions
-than the code expects, allowing services to be operated safely during upgrades.
+%{common_desc}
 
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for OpenStack common versionedobjects library
@@ -92,7 +98,7 @@ Requires: python-testtools
 Requires: pytz
 
 %description -n python2-%{pkg_name}-tests
-Tests for the oslo.versionedobjects library.
+%{common_desc_tests}
 
 
 %if 0%{?with_python3}
@@ -134,13 +140,7 @@ Requires:   python3-webob >= 1.7.1
 Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 
 %description -n python3-%{pkg_name}
-The Oslo project intends to produce a python library containing
-infrastructure code shared by OpenStack projects. The APIs provided
-by the project should be high quality, stable, consistent and generally
-useful.
-
-Oslo versionedobjects library deals with DB schema being at different versions
-than the code expects, allowing services to be operated safely during upgrades.
+%{common_desc}
 
 %package -n python3-%{pkg_name}-tests
 Summary:    Tests for OpenStack common versionedobjects library
@@ -152,7 +152,7 @@ Requires: python3-testtools
 Requires: python3-pytz
 
 %description -n python3-%{pkg_name}-tests
-Tests for the oslo.versionedobjects library.
+%{common_desc_tests}
 %endif
 
 %package  -n python-%{pkg_name}-lang
@@ -162,13 +162,7 @@ Summary:   Translation files for Oslo versionedobjects library
 Translation files for Oslo versionedobjects library
 
 %description
-The Oslo project intends to produce a python library containing
-infrastructure code shared by OpenStack projects. The APIs provided
-by the project should be high quality, stable, consistent and generally
-useful.
-
-Oslo versionedobjects library deals with DB schema being at different versions
-than the code expects, allowing services to be operated safely during upgrades.
+%{common_desc}
 
 %prep
 %autosetup -n %{sname}-%{upstream_version} -S git
