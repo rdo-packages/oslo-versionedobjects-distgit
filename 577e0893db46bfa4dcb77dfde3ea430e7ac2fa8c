@@ -1,0 +1,8 @@
+Code-Review+2: Javier Peña <jpena@redhat.com>
+Workflow+1: hguemar <hguemar@fedoraproject.org>
+Verified+2: Jenkins CI <admin@rpmfactory.beta.rdoproject.org>
+Submitted-by: Jenkins CI <admin@rpmfactory.beta.rdoproject.org>
+Submitted-at: Mon, 23 Oct 2017 15:42:11 +0000
+Reviewed-on: https://review.rdoproject.org/r/9883
+Project: openstack/oslo-versionedobjects-distgit
+Branch: refs/heads/rpm-master
