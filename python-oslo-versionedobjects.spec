@@ -190,7 +190,8 @@ rm -rf {test-,}requirements.txt
 %py3_install
 %endif
 
-%{__python2} setup.py build_sphinx -b html
+export PYTHONPATH=.
+sphinx-build -W -b html doc/source doc/build/html
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
 
