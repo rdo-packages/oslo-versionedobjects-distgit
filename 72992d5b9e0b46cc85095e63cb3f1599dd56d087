@@ -34,6 +34,24 @@
       "revId": "72992d5b9e0b46cc85095e63cb3f1599dd56d087",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa963961_ff677823",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-01-17T09:44:08Z",
+      "side": 1,
+      "message": "I think yes as upstream as enabled it so we should follow it, why not to have it enabled?",
+      "parentUuid": "fa963961_dfb5d47e",
+      "revId": "72992d5b9e0b46cc85095e63cb3f1599dd56d087",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
