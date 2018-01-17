@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa963961_7ff5a881",
+        "filename": "python-oslo-versionedobjects.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-01-17T04:19:53Z",
+      "side": 1,
+      "message": "Should enable warning-is-error as well:-\nexport PYTHONPATH\u003d.\nsphinx-build -W -b html doc/source doc/build/html",
+      "revId": "72992d5b9e0b46cc85095e63cb3f1599dd56d087",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
