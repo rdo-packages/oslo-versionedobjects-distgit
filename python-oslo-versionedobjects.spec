@@ -34,41 +34,51 @@ Summary:    OpenStack common versionedobjects library
 %{?python_provide:%python_provide python2-%{pkg_name}}
 
 BuildRequires: python2-devel
-BuildRequires: python-setuptools
-BuildRequires: python-pbr
+BuildRequires: python2-setuptools
+BuildRequires: python2-pbr
 BuildRequires: git
-BuildRequires: python-d2to1
 # Required for tests
-BuildRequires: python-hacking
-BuildRequires: python-oslotest
-BuildRequires: python-testtools
-BuildRequires: pytz
-BuildRequires: python-fixtures
-BuildRequires: python-iso8601
-BuildRequires: python-mock
-BuildRequires: python-oslo-config
-BuildRequires: python-oslo-i18n
-BuildRequires: python-oslo-messaging
-BuildRequires: python-eventlet
-BuildRequires: python-jsonschema
+BuildRequires: python2-hacking
+BuildRequires: python2-oslotest
+BuildRequires: python2-testtools
+BuildRequires: python2-fixtures
+BuildRequires: python2-iso8601
+BuildRequires: python2-mock
+BuildRequires: python2-oslo-config
+BuildRequires: python2-oslo-i18n
+BuildRequires: python2-oslo-messaging
+BuildRequires: python2-eventlet
 # Required to compile translation files
-BuildRequires: python-babel
+BuildRequires: python2-babel
+%if 0%{?fedora} > 0
+BuildRequires: python2-d2to1
+BuildRequires: python2-pytz
+BuildRequires: python2-jsonschema
+%else
+BuildRequires: python-d2to1
+BuildRequires: pytz
+BuildRequires: python-jsonschema
+%endif
 
-Requires:   python-setuptools
-Requires:   python-six >= 1.9.0
+Requires:   python2-six >= 1.10.0
+Requires:   python2-oslo-concurrency >= 3.25.0
+Requires:   python2-oslo-config >= 2:5.1.0
+Requires:   python2-oslo-context >= 2.19.2
+Requires:   python2-oslo-messaging >= 5.29.0
+Requires:   python2-oslo-serialization >= 2.18.0
+Requires:   python2-oslo-utils >= 3.33.0
+Requires:   python2-oslo-log >= 3.36.0
+Requires:   python2-oslo-i18n >= 3.15.3
+Requires:   python2-mock
+Requires:   python2-fixtures
+Requires:   python2-iso8601
+%if 0%{?fedora} > 0
+Requires:   python2-netaddr
+Requires:   python2-webob >= 1.7.1
+%else
 Requires:   python-netaddr
-Requires:   python-oslo-concurrency >= 3.8.0
-Requires:   python-oslo-config >= 2:4.0.0
-Requires:   python-oslo-context >= 2.14.0
-Requires:   python-oslo-messaging >= 5.24.2
-Requires:   python-oslo-serialization >= 1.10.0
-Requires:   python-oslo-utils  >= 3.20.0
-Requires:   python-oslo-log >= 3.22.0
-Requires:   python-oslo-i18n >= 2.1.0
-Requires:   python-mock
-Requires:   python-fixtures
-Requires:   python-iso8601
 Requires:   python-webob >= 1.7.1
+%endif
 Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 
 %description -n python2-%{pkg_name}
@@ -77,11 +87,11 @@ Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for OpenStack common versionedobjects library
 
-BuildRequires: python-oslo-config
-BuildRequires: python-openstackdocstheme
-BuildRequires: python-oslo-messaging
-BuildRequires: python-iso8601
-BuildRequires: python-sphinx
+BuildRequires: python2-oslo-config
+BuildRequires: python2-openstackdocstheme
+BuildRequires: python2-oslo-messaging
+BuildRequires: python2-iso8601
+BuildRequires: python2-sphinx
 
 # Needed for autoindex which imports the code
 
@@ -91,11 +101,15 @@ Documentation for the oslo.versionedobjects library.
 %package -n python2-%{pkg_name}-tests
 Summary:    Tests for OpenStack common versionedobjects library
 
-Requires: python-%{pkg_name} = %{version}-%{release}
-Requires: python-hacking
-Requires: python-oslotest
-Requires: python-testtools
+Requires: python2-%{pkg_name} = %{version}-%{release}
+Requires: python2-hacking
+Requires: python2-oslotest
+Requires: python2-testtools
+%if 0%{?fedora} > 0
+Requires: python2-pytz
+%else
 Requires: pytz
+%endif
 
 %description -n python2-%{pkg_name}-tests
 %{common_desc_tests}
@@ -124,15 +138,15 @@ BuildRequires: python3-oslo-messaging
 BuildRequires: python3-eventlet
 
 Requires:   python3-setuptools
-Requires:   python3-six >= 1.9.0
-Requires:   python3-oslo-concurrency >= 3.8.0
-Requires:   python3-oslo-config >= 2:4.0.0
-Requires:   python3-oslo-context >= 2.14.0
-Requires:   python3-oslo-messaging >= 5.24.2
-Requires:   python3-oslo-serialization >= 1.10.0
-Requires:   python3-oslo-utils >= 3.20.0
-Requires:   python3-oslo-log >= 3.22.0
-Requires:   python3-oslo-i18n >= 2.1.0
+Requires:   python3-six >= 1.10.0
+Requires:   python3-oslo-concurrency >= 3.25.0
+Requires:   python3-oslo-config >= 2:5.1.0
+Requires:   python3-oslo-context >= 2.19.2
+Requires:   python3-oslo-messaging >= 5.29.0
+Requires:   python3-oslo-serialization >= 2.18.0
+Requires:   python3-oslo-utils >= 3.33.0
+Requires:   python3-oslo-log >= 3.36.0
+Requires:   python3-oslo-i18n >= 3.15.3
 Requires:   python3-mock
 Requires:   python3-fixtures
 Requires:   python3-iso8601
