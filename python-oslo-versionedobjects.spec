@@ -61,16 +61,14 @@ BuildRequires: python-jsonschema
 %endif
 
 Requires:   python2-six >= 1.10.0
-Requires:   python2-oslo-concurrency >= 3.25.0
-Requires:   python2-oslo-config >= 2:5.1.0
+Requires:   python2-oslo-concurrency >= 3.26.0
+Requires:   python2-oslo-config >= 2:5.2.0
 Requires:   python2-oslo-context >= 2.19.2
 Requires:   python2-oslo-messaging >= 5.29.0
 Requires:   python2-oslo-serialization >= 2.18.0
 Requires:   python2-oslo-utils >= 3.33.0
 Requires:   python2-oslo-log >= 3.36.0
 Requires:   python2-oslo-i18n >= 3.15.3
-Requires:   python2-mock
-Requires:   python2-fixtures
 Requires:   python2-iso8601
 %if 0%{?fedora} > 0
 Requires:   python2-netaddr
@@ -131,6 +129,7 @@ BuildRequires: python3-testtools
 BuildRequires: python3-pytz
 BuildRequires: python3-fixtures
 BuildRequires: python3-iso8601
+BuildRequires: python3-jsonschema
 BuildRequires: python3-mock
 BuildRequires: python3-oslo-config
 BuildRequires: python3-oslo-i18n
@@ -139,8 +138,8 @@ BuildRequires: python3-eventlet
 
 Requires:   python3-setuptools
 Requires:   python3-six >= 1.10.0
-Requires:   python3-oslo-concurrency >= 3.25.0
-Requires:   python3-oslo-config >= 2:5.1.0
+Requires:   python3-oslo-concurrency >= 3.26.0
+Requires:   python3-oslo-config >= 2:5.2.0
 Requires:   python3-oslo-context >= 2.19.2
 Requires:   python3-oslo-messaging >= 5.29.0
 Requires:   python3-oslo-serialization >= 2.18.0
