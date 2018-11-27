@@ -1,7 +1,15 @@
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-%if 0%{?fedora} >= 24
-%global with_python3 1
+# Macros for py2/py3 compatibility
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global pyver %{python3_pkgversion}
+%else
+%global pyver 2
 %endif
+%global pyver_bin python%{pyver}
+%global pyver_sitelib %python%{pyver}_sitelib
+%global pyver_install %py%{pyver}_install
+%global pyver_build %py%{pyver}_build
+# End of macros for py2/py3 compatibility
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global sname oslo.versionedobjects
 %global pkg_name oslo-versionedobjects
@@ -29,144 +37,85 @@ URL:        https://launchpad.net/oslo
 Source0:    https://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz
 BuildArch:  noarch
 
-%package -n python2-%{pkg_name}
+%package -n python%{pyver}-%{pkg_name}
 Summary:    OpenStack common versionedobjects library
-%{?python_provide:%python_provide python2-%{pkg_name}}
+%{?python_provide:%python_provide python%{pyver}-%{pkg_name}}
 
-BuildRequires: python2-devel
-BuildRequires: python2-setuptools
-BuildRequires: python2-pbr
+BuildRequires: python%{pyver}-devel
+BuildRequires: python%{pyver}-setuptools
+BuildRequires: python%{pyver}-pbr
 BuildRequires: git
 # Required for tests
-BuildRequires: python2-hacking
-BuildRequires: python2-oslotest
-BuildRequires: python2-testtools
-BuildRequires: python2-fixtures
-BuildRequires: python2-iso8601
-BuildRequires: python2-mock
-BuildRequires: python2-oslo-config
-BuildRequires: python2-oslo-i18n
-BuildRequires: python2-oslo-messaging
-BuildRequires: python2-eventlet
+BuildRequires: python%{pyver}-hacking
+BuildRequires: python%{pyver}-oslotest
+BuildRequires: python%{pyver}-testtools
+BuildRequires: python%{pyver}-fixtures
+BuildRequires: python%{pyver}-iso8601
+BuildRequires: python%{pyver}-mock
+BuildRequires: python%{pyver}-oslo-config
+BuildRequires: python%{pyver}-oslo-i18n
+BuildRequires: python%{pyver}-oslo-messaging
+BuildRequires: python%{pyver}-eventlet
 # Required to compile translation files
-BuildRequires: python2-babel
-%if 0%{?fedora} > 0
-BuildRequires: python2-d2to1
-BuildRequires: python2-pytz
-BuildRequires: python2-jsonschema
-%else
+BuildRequires: python%{pyver}-babel
+BuildRequires: python%{pyver}-jsonschema
+
+# Handle python2 exception
+%if %{pyver} == 2
 BuildRequires: python-d2to1
 BuildRequires: pytz
-BuildRequires: python-jsonschema
+%else
+BuildRequires: python%{pyver}-d2to1
+BuildRequires: python%{pyver}-pytz
 %endif
 
-Requires:   python2-six >= 1.10.0
-Requires:   python2-oslo-concurrency >= 3.26.0
-Requires:   python2-oslo-config >= 2:5.2.0
-Requires:   python2-oslo-context >= 2.19.2
-Requires:   python2-oslo-messaging >= 5.29.0
-Requires:   python2-oslo-serialization >= 2.18.0
-Requires:   python2-oslo-utils >= 3.33.0
-Requires:   python2-oslo-log >= 3.36.0
-Requires:   python2-oslo-i18n >= 3.15.3
-Requires:   python2-iso8601
-%if 0%{?fedora} > 0
-Requires:   python2-netaddr
-Requires:   python2-webob >= 1.7.1
-%else
-Requires:   python-netaddr
-Requires:   python-webob >= 1.7.1
-%endif
+Requires:   python%{pyver}-six >= 1.10.0
+Requires:   python%{pyver}-oslo-concurrency >= 3.26.0
+Requires:   python%{pyver}-oslo-config >= 2:5.2.0
+Requires:   python%{pyver}-oslo-context >= 2.19.2
+Requires:   python%{pyver}-oslo-messaging >= 5.29.0
+Requires:   python%{pyver}-oslo-serialization >= 2.18.0
+Requires:   python%{pyver}-oslo-utils >= 3.33.0
+Requires:   python%{pyver}-oslo-log >= 3.36.0
+Requires:   python%{pyver}-oslo-i18n >= 3.15.3
+Requires:   python%{pyver}-iso8601
+Requires:   python%{pyver}-netaddr
+Requires:   python%{pyver}-webob >= 1.7.1
 Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 
-%description -n python2-%{pkg_name}
+%description -n python%{pyver}-%{pkg_name}
 %{common_desc}
 
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for OpenStack common versionedobjects library
 
-BuildRequires: python2-oslo-config
-BuildRequires: python2-openstackdocstheme
-BuildRequires: python2-oslo-messaging
-BuildRequires: python2-iso8601
-BuildRequires: python2-sphinx
+BuildRequires: python%{pyver}-oslo-config
+BuildRequires: python%{pyver}-openstackdocstheme
+BuildRequires: python%{pyver}-oslo-messaging
+BuildRequires: python%{pyver}-iso8601
+BuildRequires: python%{pyver}-sphinx
 
 # Needed for autoindex which imports the code
 
 %description -n python-%{pkg_name}-doc
 Documentation for the oslo.versionedobjects library.
 
-%package -n python2-%{pkg_name}-tests
+%package -n python%{pyver}-%{pkg_name}-tests
 Summary:    Tests for OpenStack common versionedobjects library
 
-Requires: python2-%{pkg_name} = %{version}-%{release}
-Requires: python2-hacking
-Requires: python2-oslotest
-Requires: python2-testtools
+Requires: python%{pyver}-%{pkg_name} = %{version}-%{release}
+Requires: python%{pyver}-hacking
+Requires: python%{pyver}-oslotest
+Requires: python%{pyver}-testtools
 %if 0%{?fedora} > 0
-Requires: python2-pytz
+Requires: python%{pyver}-pytz
 %else
 Requires: pytz
 %endif
 
-%description -n python2-%{pkg_name}-tests
+%description -n python%{pyver}-%{pkg_name}-tests
 %{common_desc_tests}
 
-
-%if 0%{?with_python3}
-%package -n python3-%{pkg_name}
-Summary:    OpenStack common versionedobjects library
-%{?python_provide:%python_provide python3-%{pkg_name}}
-
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-pbr
-BuildRequires: python3-d2to1
-# Required for tests
-BuildRequires: python3-hacking
-BuildRequires: python3-oslotest
-BuildRequires: python3-testtools
-BuildRequires: python3-pytz
-BuildRequires: python3-fixtures
-BuildRequires: python3-iso8601
-BuildRequires: python3-jsonschema
-BuildRequires: python3-mock
-BuildRequires: python3-oslo-config
-BuildRequires: python3-oslo-i18n
-BuildRequires: python3-oslo-messaging
-BuildRequires: python3-eventlet
-
-Requires:   python3-setuptools
-Requires:   python3-six >= 1.10.0
-Requires:   python3-oslo-concurrency >= 3.26.0
-Requires:   python3-oslo-config >= 2:5.2.0
-Requires:   python3-oslo-context >= 2.19.2
-Requires:   python3-oslo-messaging >= 5.29.0
-Requires:   python3-oslo-serialization >= 2.18.0
-Requires:   python3-oslo-utils >= 3.33.0
-Requires:   python3-oslo-log >= 3.36.0
-Requires:   python3-oslo-i18n >= 3.15.3
-Requires:   python3-mock
-Requires:   python3-fixtures
-Requires:   python3-iso8601
-Requires:   python3-webob >= 1.7.1
-Requires:   python-%{pkg_name}-lang = %{version}-%{release}
-
-%description -n python3-%{pkg_name}
-%{common_desc}
-
-%package -n python3-%{pkg_name}-tests
-Summary:    Tests for OpenStack common versionedobjects library
-
-Requires: python3-%{pkg_name} = %{version}-%{release}
-Requires: python3-hacking
-Requires: python3-oslotest
-Requires: python3-testtools
-Requires: python3-pytz
-
-%description -n python3-%{pkg_name}-tests
-%{common_desc_tests}
-%endif
 
 %package  -n python-%{pkg_name}-lang
 Summary:   Translation files for Oslo versionedobjects library
@@ -188,72 +137,47 @@ sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
 rm -rf {test-,}requirements.txt
 
 %build
-%py2_build
-%if 0%{?with_python3}
-%py3_build
-%endif
+%{pyver_build}
 
 # Generate i18n files
-%{__python2} setup.py compile_catalog -d build/lib/oslo_versionedobjects/locale
+%{pyver_bin} setup.py compile_catalog -d build/lib/oslo_versionedobjects/locale
 
 
 %install
-%py2_install
-%if 0%{?with_python3}
-%py3_install
-%endif
+%{pyver_install}
 
 export PYTHONPATH=.
-sphinx-build -W -b html doc/source doc/build/html
+sphinx-build-%{pyver} -W -b html doc/source doc/build/html
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
 
 # Install i18n .mo files (.po and .pot are not required)
 install -d -m 755 %{buildroot}%{_datadir}
-rm -f %{buildroot}%{python2_sitelib}/oslo_versionedobjects/locale/*/LC_*/oslo_versionedobjects*po
-rm -f %{buildroot}%{python2_sitelib}/oslo_versionedobjects/locale/*pot
-mv %{buildroot}%{python2_sitelib}/oslo_versionedobjects/locale %{buildroot}%{_datadir}/locale
-%if 0%{?with_python3}
-rm -rf %{buildroot}%{python3_sitelib}/oslo_versionedobjects/locale
-%endif
+rm -f %{buildroot}%{pyver_sitelib}/oslo_versionedobjects/locale/*/LC_*/oslo_versionedobjects*po
+rm -f %{buildroot}%{pyver_sitelib}/oslo_versionedobjects/locale/*pot
+mv %{buildroot}%{pyver_sitelib}/oslo_versionedobjects/locale %{buildroot}%{_datadir}/locale
 
 # Find language files
 %find_lang oslo_versionedobjects --all-name
 
 %check
-%if 0%{?with_python3}
-%{__python3} setup.py test
-rm -rf .testrepository
-%endif
-%{__python2} setup.py test
+%{pyver_bin} setup.py test
 
-%files -n python2-%{pkg_name}
+%files -n python%{pyver}-%{pkg_name}
 %doc README.rst
 %license LICENSE
-%{python2_sitelib}/oslo_versionedobjects
-%{python2_sitelib}/*.egg-info
-%exclude %{python2_sitelib}/oslo_versionedobjects/tests
+%{pyver_sitelib}/oslo_versionedobjects
+%{pyver_sitelib}/*.egg-info
+%exclude %{pyver_sitelib}/oslo_versionedobjects/tests
 
 %files -n python-%{pkg_name}-doc
 %doc doc/build/html
 %license LICENSE
 
-%files -n python2-%{pkg_name}-tests
-%{python2_sitelib}/oslo_versionedobjects/tests
+%files -n python%{pyver}-%{pkg_name}-tests
+%{pyver_sitelib}/oslo_versionedobjects/tests
 
 %files -n python-%{pkg_name}-lang -f oslo_versionedobjects.lang
 %license LICENSE
-
-%if 0%{?with_python3}
-%files -n python3-%{pkg_name}
-%doc README.rst
-%license LICENSE
-%{python3_sitelib}/oslo_versionedobjects
-%{python3_sitelib}/*.egg-info
-%exclude %{python3_sitelib}/oslo_versionedobjects/tests
-
-%files -n python3-%{pkg_name}-tests
-%{python3_sitelib}/oslo_versionedobjects/tests
-%endif
 
 %changelog
