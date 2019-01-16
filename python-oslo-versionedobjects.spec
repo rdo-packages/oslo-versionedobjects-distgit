@@ -14,6 +14,8 @@
 %global sname oslo.versionedobjects
 %global pkg_name oslo-versionedobjects
 
+%global with_doc 1
+
 %global common_desc \
 The Oslo project intends to produce a python library containing \
 infrastructure code shared by OpenStack projects. The APIs provided \
@@ -86,6 +88,7 @@ Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 %description -n python%{pyver}-%{pkg_name}
 %{common_desc}
 
+%if 0%{?with_doc}
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for OpenStack common versionedobjects library
 
@@ -99,6 +102,7 @@ BuildRequires: python%{pyver}-sphinx
 
 %description -n python-%{pkg_name}-doc
 Documentation for the oslo.versionedobjects library.
+%endif
 
 %package -n python%{pyver}-%{pkg_name}-tests
 Summary:    Tests for OpenStack common versionedobjects library
@@ -146,10 +150,12 @@ rm -rf {test-,}requirements.txt
 %install
 %{pyver_install}
 
+%if 0%{?with_doc}
 export PYTHONPATH=.
 sphinx-build-%{pyver} -W -b html doc/source doc/build/html
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
+%endif
 
 # Install i18n .mo files (.po and .pot are not required)
 install -d -m 755 %{buildroot}%{_datadir}
@@ -170,9 +176,11 @@ mv %{buildroot}%{pyver_sitelib}/oslo_versionedobjects/locale %{buildroot}%{_data
 %{pyver_sitelib}/*.egg-info
 %exclude %{pyver_sitelib}/oslo_versionedobjects/tests
 
+%if 0%{?with_doc}
 %files -n python-%{pkg_name}-doc
 %doc doc/build/html
 %license LICENSE
+%endif
 
 %files -n python%{pyver}-%{pkg_name}-tests
 %{pyver_sitelib}/oslo_versionedobjects/tests
