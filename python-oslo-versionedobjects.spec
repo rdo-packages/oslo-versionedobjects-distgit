@@ -111,10 +111,10 @@ Requires: python%{pyver}-%{pkg_name} = %{version}-%{release}
 Requires: python%{pyver}-hacking
 Requires: python%{pyver}-oslotest
 Requires: python%{pyver}-testtools
-%if 0%{?fedora} > 0
-Requires: python%{pyver}-pytz
-%else
+%if %{pyver} == 2
 Requires: pytz
+%else
+Requires: python%{pyver}-pytz
 %endif
 
 %description -n python%{pyver}-%{pkg_name}-tests
