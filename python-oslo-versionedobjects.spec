@@ -29,8 +29,8 @@ than the code expects, allowing services to be operated safely during upgrades.
 Tests for the oslo.versionedobjects library.
 
 Name:       python-oslo-versionedobjects
-Version:    XXX
-Release:    XXX
+Version:    1.36.1
+Release:    1%{?dist}
 Summary:    OpenStack common versionedobjects library
 
 Group:      Development/Languages
@@ -189,3 +189,6 @@ mv %{buildroot}%{pyver_sitelib}/oslo_versionedobjects/locale %{buildroot}%{_data
 %license LICENSE
 
 %changelog
+* Thu Sep 19 2019 RDO <dev@lists.rdoproject.org> 1.36.1-1
+- Update to 1.36.1
+
