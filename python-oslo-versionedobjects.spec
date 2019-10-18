@@ -64,10 +64,8 @@ BuildRequires: python%{pyver}-jsonschema
 
 # Handle python2 exception
 %if %{pyver} == 2
-BuildRequires: python-d2to1
 BuildRequires: pytz
 %else
-BuildRequires: python%{pyver}-d2to1
 BuildRequires: python%{pyver}-pytz
 %endif
 
