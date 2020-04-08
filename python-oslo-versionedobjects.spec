@@ -69,7 +69,6 @@ BuildRequires: pytz
 BuildRequires: python%{pyver}-pytz
 %endif
 
-Requires:   python%{pyver}-six >= 1.10.0
 Requires:   python%{pyver}-oslo-concurrency >= 3.26.0
 Requires:   python%{pyver}-oslo-config >= 2:5.2.0
 Requires:   python%{pyver}-oslo-context >= 2.19.2
