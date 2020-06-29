@@ -121,7 +121,7 @@ rm -rf {test-,}requirements.txt
 %{py3_build}
 
 # Generate i18n files
-python3 setup.py compile_catalog -d build/lib/oslo_versionedobjects/locale
+python3 setup.py compile_catalog -d build/lib/oslo_versionedobjects/locale --domain oslo_versionedobjects
 
 
 %install
