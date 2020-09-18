@@ -18,8 +18,8 @@ than the code expects, allowing services to be operated safely during upgrades.
 Tests for the oslo.versionedobjects library.
 
 Name:       python-oslo-versionedobjects
-Version:    XXX
-Release:    XXX
+Version:    2.3.0
+Release:    1%{?dist}
 Summary:    OpenStack common versionedobjects library
 
 Group:      Development/Languages
@@ -166,3 +166,6 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Fri Sep 18 2020 RDO <dev@lists.rdoproject.org> 2.3.0-1
+- Update to 2.3.0
+
