@@ -48,7 +48,7 @@ Summary:    OpenStack common versionedobjects library
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-pbr
-BuildRequires: git
+BuildRequires: git-core
 # Required for tests
 BuildRequires: python3-hacking
 BuildRequires: python3-oslotest
