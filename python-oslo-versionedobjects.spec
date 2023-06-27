@@ -1,6 +1,12 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 
 %global sname oslo.versionedobjects
 %global pkg_name oslo-versionedobjects
@@ -25,7 +31,7 @@ Release:    XXX
 Summary:    OpenStack common versionedobjects library
 
 Group:      Development/Languages
-License:    ASL 2.0
+License:    Apache-2.0
 URL:        https://launchpad.net/oslo
 Source0:    https://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -43,40 +49,10 @@ BuildRequires:  openstack-macros
 
 %package -n python3-%{pkg_name}
 Summary:    OpenStack common versionedobjects library
-%{?python_provide:%python_provide python3-%{pkg_name}}
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-BuildRequires: python3-pbr
+BuildRequires: pyproject-rpm-macros
 BuildRequires: git-core
-# Required for tests
-BuildRequires: python3-hacking
-BuildRequires: python3-oslotest
-BuildRequires: python3-testtools
-BuildRequires: python3-fixtures
-BuildRequires: python3-iso8601
-BuildRequires: python3-mock
-BuildRequires: python3-oslo-config
-BuildRequires: python3-oslo-i18n
-BuildRequires: python3-oslo-messaging
-BuildRequires: python3-eventlet
-# Required to compile translation files
-BuildRequires: python3-babel
-BuildRequires: python3-jsonschema
-
-BuildRequires: python3-pytz
-
-Requires:   python3-oslo-concurrency >= 3.26.0
-Requires:   python3-oslo-config >= 2:5.2.0
-Requires:   python3-oslo-context >= 2.19.2
-Requires:   python3-oslo-messaging >= 5.29.0
-Requires:   python3-oslo-serialization >= 2.18.0
-Requires:   python3-oslo-utils >= 4.7.0
-Requires:   python3-oslo-log >= 3.36.0
-Requires:   python3-oslo-i18n >= 3.15.3
-Requires:   python3-iso8601
-Requires:   python3-netaddr
-Requires:   python3-webob >= 1.7.1
 Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 
 %description -n python3-%{pkg_name}
@@ -85,14 +61,6 @@ Requires:   python-%{pkg_name}-lang = %{version}-%{release}
 %if 0%{?with_doc}
 %package -n python-%{pkg_name}-doc
 Summary:    Documentation for OpenStack common versionedobjects library
-
-BuildRequires: python3-oslo-config
-BuildRequires: python3-openstackdocstheme
-BuildRequires: python3-oslo-messaging
-BuildRequires: python3-iso8601
-BuildRequires: python3-sphinx
-
-# Needed for autoindex which imports the code
 
 %description -n python-%{pkg_name}-doc
 Documentation for the oslo.versionedobjects library.
@@ -127,26 +95,43 @@ Translation files for Oslo versionedobjects library
 %endif
 %autosetup -n %{sname}-%{upstream_version} -S git
 
-# let RPM handle deps
-sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
 
-# Remove the requirements file so that pbr hooks don't add it
-# to distutils requires_dist config
-rm -rf {test-,}requirements.txt
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs};do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
-%{py3_build}
+%pyproject_wheel
 
-# Generate i18n files
-python3 setup.py compile_catalog -d build/lib/oslo_versionedobjects/locale --domain oslo_versionedobjects
 
 
 %install
-%{py3_install}
+%pyproject_install
+
+# Generate i18n files
+python3 setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/oslo_versionedobjects/locale --domain oslo_versionedobjects
+
 
 %if 0%{?with_doc}
 export PYTHONPATH=.
-sphinx-build-3 -W -b html doc/source doc/build/html
+%tox -e docs
 # Fix hidden-file-or-dir warnings
 rm -fr doc/build/html/.buildinfo
 %endif
@@ -161,13 +146,13 @@ mv %{buildroot}%{python3_sitelib}/oslo_versionedobjects/locale %{buildroot}%{_da
 %find_lang oslo_versionedobjects --all-name
 
 %check
-python3 setup.py test
+%tox -e %{default_toxenv}
 
 %files -n python3-%{pkg_name}
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/oslo_versionedobjects
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %exclude %{python3_sitelib}/oslo_versionedobjects/tests
 
 %if 0%{?with_doc}
