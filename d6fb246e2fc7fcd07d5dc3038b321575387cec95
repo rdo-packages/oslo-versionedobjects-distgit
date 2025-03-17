@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce02114a_e94f1139",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2025-03-17T15:38:05Z",
+      "side": 1,
+      "message": "missing latest oslo-utils",
+      "revId": "d6fb246e2fc7fcd07d5dc3038b321575387cec95",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
